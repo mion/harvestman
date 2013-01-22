@@ -37,13 +37,13 @@ end
 ## One node to rule them all
 
 Harvestman assumes there's only one node at the path you passed to the ``css`` (or ``xpath``) method (it's like calling Nokogiri's ``at_css`` method).
-If there is more than one node at that path, you should pass an additional block.
+If there is more than one node at that path, you should pass in an additional block.
 
 ###### Another example:
 
 ```ruby
 Harvestman.crawl 'http://en.wikipedia.org/wiki/Main_Page' do
-  # Print the current site notice
+  # Print today's featured article
   tfa = css "div#mp-tfa"
 
   puts "Today's featured article: #{tfa}"
@@ -60,11 +60,11 @@ Harvestman.crawl 'http://en.wikipedia.org/wiki/Main_Page' do
 end
 ```
 
-Note that inside the block we use ``css("a")`` and *not* ``css("div#mp-sister b a")``. Calls to ``css`` or ``xpath`` here already know that ``div#mp-sister b`` is the parent node.
+Note that inside the block we use ``css("a")`` and *not* ``css("div#mp-sister b a")``. Calls to ``css`` or ``xpath`` here assume ``div#mp-sister b`` is the parent node.
 
 ## Pages / Search results
 
-If you want to crawl a group of similar pages (eg: search results, as shown above), you can insert a ``*`` somewhere in the URL string and it will be replaced by the elements passed in the second argument.
+If you want to crawl a group of similar pages (eg: search results, as shown above), you can insert a ``*`` somewhere in the URL string and it will be replaced by each element in the second argument.
 
 ###### Final example:
 
@@ -91,11 +91,4 @@ See LICENSE.
 
 ## Contributing
 
-I'm accepting contributions of all sorts. This is the first version and the code base is very small, so you're welcome to add a new feature, refactor a method/class/module, add more tests, etc.
-
-In case you're new to Github:
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+I'm accepting contributions of all sorts. This is the first version and the code base is very small, so feel free to add a new feature, refactor a method/class/module, add more tests, etc.
