@@ -1,30 +1,29 @@
 module Harvestman
-  class Crawler
-    def initialize(url)
-      @document = Nokogiri::HTML(open(url))
+  module Crawler
+    # Raised when the requested page did not respond.
+    class RequestError < SocketError; end
+    # Raised when given URL is invalid.
+    class URLError < ArgumentError; end
+    # Raised when one of the elements in the pages array does not implement to_s.
+    class PageError < ArgumentError; end
+    # Raised when given crawler type is not registered.
+    class UnknownCrawler < ArgumentError; end
+
+    def self.register(name, klass)
+      @crawlers ||= {}
+      @crawlers[name] = klass
     end
 
-    def css(path, &block)
-      parse(:css, path, &block)
-    end
-
-    def xpath(path, &block)
-      parse(:xpath, path, &block)
-    end
-
-    private
-
-    def parse(path_type, path, &block)
-      if block_given?
-        @document.send(path_type, path).each do |node|
-          doc = @document
-          @document = node
-          instance_eval(&block)
-          @document = doc
-        end
+    def self.new(name, *args)
+      if crawler = @crawlers[name]
+        crawler.new(*args)
       else
-        @document.send("at_#{path_type}",path).inner_text
+        raise UnknownCrawler, "No such type: #{name}"
       end
     end
+
+    require 'harvestman/crawler/base'
+    require 'harvestman/crawler/plain'
+    require 'harvestman/crawler/fast'
   end
 end

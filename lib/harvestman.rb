@@ -1,7 +1,11 @@
-require "harvestman/version"
-require "harvestman/crawler"
 require "nokogiri"
 require "open-uri"
+
+['version',
+ 'crawler/plain',
+ 'crawler/fast').each do |file|
+  require "harvestman/#{file}"
+end
 
 module Harvestman
   # Public: Crawl a website. You can visit similar URLs (eg: pages in a search
@@ -24,6 +28,10 @@ module Harvestman
   # end
   #
   # Returns nothing.
+  def self.crawl(url, pages = nil, &block)
+    client = Harvestman::Crawler.new(url, pages, &block)
+  end
+
   def self.crawl(url, pages = nil, &block)
     if pages.nil?
       crawl_url(url, &block)
