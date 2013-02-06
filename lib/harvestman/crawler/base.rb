@@ -1,31 +1,16 @@
 module Harvestman
   module Crawler
     class Base
-      def initialize(url)
-        @document = Nokogiri::HTML(open(url))
+      def initialize(base_url, pages)
+        @base_url = base_url
+        @pages = pages
       end
 
-      def css(path, &block)
-        parse(:css, path, &block)
-      end
+      protected
 
-      def xpath(path, &block)
-        parse(:xpath, path, &block)
-      end
-
-      private
-
-      def parse(path_type, path, &block)
-        if block_given?
-          @document.send(path_type, path).each do |node|
-            doc = @document
-            @document = node
-            instance_eval(&block)
-            @document = doc
-          end
-        else
-          @document.send("at_#{path_type}", path).inner_text
-        end
+      def crawl_url(url, &block)
+        parser = Parser.new(url)
+        parser.instance_eval(&block)
       end
     end
   end

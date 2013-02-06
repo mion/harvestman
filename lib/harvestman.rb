@@ -14,6 +14,8 @@ module Harvestman
   # url   - A String containing the url to be crawled.
   # pages - Zero or more Strings that will replace a * in the
   #         base url. Note: this does not need to be an Array.
+  # type  - Optional. You can run a "plain" (default) or "fast" crawler. 
+  #         Fast mode uses threads for performance.
   #
   # Example: Crawl Etsy.com, printing the title and price of each item in
   #          pages 1, 2 and 3 of the Electronics category.
@@ -28,32 +30,8 @@ module Harvestman
   # end
   #
   # Returns nothing.
-  def self.crawl(url, pages = nil, &block)
-    client = Harvestman::Crawler.new(url, pages, &block)
-  end
-
-  def self.crawl(url, pages = nil, &block)
-    if pages.nil?
-      crawl_url(url, &block)
-    else
-      Thread.abort_on_exception = true
-      threads = []
-      pages.each do |page|
-        threads << Thread.new(page) do |p|
-          current_url = url.gsub('*', p.to_s)
-
-          crawl_url(current_url, &block)
-        end
-      end
-      threads.each { |t| t.join }
-    end
-  end
-
-  private
-
-  def self.crawl_url(url, &block)
-    crawler = Crawler.new(url)
-    mutex = Mutex.new
-    mutex.synchronize { crawler.instance_eval(&block) }
+  def self.crawl(url, pages = nil, type = :plain, &block)
+    crawler = Harvestman::Crawler.new(url, pages, type)
+    crawler.crawl(&block)
   end
 end
