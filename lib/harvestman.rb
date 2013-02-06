@@ -1,11 +1,8 @@
 require "nokogiri"
 require "open-uri"
 
-['version',
- 'crawler/plain',
- 'crawler/fast').each do |file|
-  require "harvestman/#{file}"
-end
+require 'harvestman/version'
+require 'harvestman/crawler'
 
 module Harvestman
   # Public: Crawl a website. You can visit similar URLs (eg: pages in a search
@@ -14,7 +11,7 @@ module Harvestman
   # url   - A String containing the url to be crawled.
   # pages - Zero or more Strings that will replace a * in the
   #         base url. Note: this does not need to be an Array.
-  # type  - Optional. You can run a "plain" (default) or "fast" crawler. 
+  # type  - Optional. You can use a "plain" (default) or "fast" crawler.
   #         Fast mode uses threads for performance.
   #
   # Example: Crawl Etsy.com, printing the title and price of each item in
