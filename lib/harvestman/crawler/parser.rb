@@ -1,5 +1,5 @@
 module Harvestman
-  class Crawler
+  module Crawler
     class Parser
       def initialize(url)
         @document = Nokogiri::HTML(open(url))
