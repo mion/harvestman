@@ -1,11 +1,5 @@
 module Harvestman
   module Crawler
-    # Raised when the requested page did not respond.
-    class RequestError < SocketError; end
-    # Raised when given URL is invalid.
-    class URLError < ArgumentError; end
-    # Raised when one of the elements in the pages array does not implement to_s.
-    class PageError < ArgumentError; end
     # Raised when given crawler type is not registered.
     class UnknownCrawler < ArgumentError; end
 
