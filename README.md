@@ -2,6 +2,8 @@
 
 Harvestman is a lightweight, simple, thread-safe web crawler.
 
+*Warning:* This gem is in alpha version, no tests yet.
+
 ## Installation
 
 Add this line to your application's Gemfile:
