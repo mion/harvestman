@@ -6,7 +6,7 @@ module Harvestman
           crawl_url(@base_url, &block)
         else
           @pages.each do |p|
-            crawl_url(@base_url.gsub('*', p.to_s))
+            crawl_url(@base_url.gsub('*', p.to_s), &block)
           end
         end
       end

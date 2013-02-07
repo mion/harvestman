@@ -29,6 +29,8 @@ module Harvestman
   # Returns nothing.
   def self.crawl(url, pages = nil, type = :plain, &block)
     crawler = Harvestman::Crawler.new(url, pages, type)
-    crawler.crawl(&block)
+    if block_given?
+      crawler.crawl(&block)
+    end
   end
 end

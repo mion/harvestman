@@ -7,7 +7,7 @@ module Harvestman
         else
           threads = []
           @pages.each do |p|
-            threads << Thread.new(p) { |page| crawl_url(@base_url.gsub('*', p.to_s)) }
+            threads << Thread.new(p) { |page| crawl_url(@base_url.gsub('*', p.to_s), &block) }
           end
           threads.each { |t| t.join }
         end
