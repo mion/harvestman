@@ -1,8 +1,9 @@
 # Harvestman
 
-Harvestman is a lightweight, simple, thread-safe web crawler.
+Harvestman is a simple web crawler built on top of Nokogiri.<br>
+It uses a *mutex lock* by default to ensure thread-safety, but you can turn it off to increase performance even further.
 
-*Warning:* This gem is in alpha version, no tests yet.
+**Warning:** This gem is in alpha version, no tests yet.
 
 ## Installation
 
@@ -87,9 +88,45 @@ The above code is going to crawl Etsy's electronics category pages (from 1 to 3)
 
     "http://www.site.com?query=*", ["dogs", "cats", "birds"]
 
+## Performance
+You can **greatly increase** Harvestman's performance by turning thread-safety off.<br>
+All you need to do is pass an aditional parameter ``:fast`` to ``Harvestman.crawl``.<br>
+###### Like this:
+
+```ruby
+require 'harvestman'
+
+Harvestman.crawl 'http://www.store.com/products?page=*', (1..99), :fast do
+  ...
+end
+```
+
+It will run much, much faster (even on **MRI**) but bear in mind that it no longer ensures [mutual exclusion](http://en.wikipedia.org/wiki/Mutual_exclusion).
+
 ## License
 
-See LICENSE.
+Copyright (c) 2012 Gabriel Vieira
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Contributing
 
