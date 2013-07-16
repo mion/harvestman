@@ -1,9 +1,18 @@
 # Harvestman
 
-Harvestman is a simple web crawler built on top of Nokogiri.<br>
-It uses a *mutex lock* by default to ensure thread-safety, but you can turn it off to increase performance even further.
+Harvestman is a very simple, lightweight web crawler.<br>
+It's quite useful for scraping search result pages:
 
-**Warning:** This gem is in alpha version, no tests yet.
+```ruby
+require 'harvestman'
+
+Harvestman.crawl 'http://www.foo.com/bars?page=*', (1..5) do
+  price = css 'div.item-price a'
+  ...
+end
+```
+
+Or for Quick'n'Dirty™ web scraping in general.
 
 ## Installation
 
@@ -22,7 +31,7 @@ Or install it yourself as:
 ## Basic usage
 
 Harvestman is fairly simple to use: you specify the URL to crawl and pass in a block.
-Inside the block you can call the ``css`` (or ``xpath``) method to search the HTML document (see [Nokogiri](http://nokogiri.org/tutorials/searching_a_xml_html_document.html)).
+Inside the block you can call the ``css`` (or ``xpath``) method to search the HTML document (Harvestman is built on top of [Nokogiri](http://nokogiri.org/tutorials/searching_a_xml_html_document.html)).
 By default, these methods will return the inner text inside the node.
 
 ###### Perhaps this is best understood with an example:
@@ -88,46 +97,23 @@ The above code is going to crawl Etsy's electronics category pages (from 1 to 3)
 
     "http://www.site.com?query=*", ["dogs", "cats", "birds"]
 
-## Performance
-You can **greatly increase** Harvestman's performance by turning thread-safety off.<br>
-All you need to do is pass an aditional parameter ``:fast`` to ``Harvestman.crawl``.<br>
-###### Like this:
+### Performance
+When using the * feature described above, each page is run inside a separate thread. You can disable multithreading by passing an additional argument `:plain` to the `crawl` method, like this:
 
 ```ruby
 require 'harvestman'
 
-Harvestman.crawl 'http://www.store.com/products?page=*', (1..99), :fast do
+Harvestman.crawl 'http://www.store.com/products?page=*', (1..99), :plain do
   ...
 end
 ```
 
-It will run much, much faster (even on **MRI**) but bear in mind that it no longer ensures [mutual exclusion](http://en.wikipedia.org/wiki/Mutual_exclusion).
+Needless to say, this will **greatly decrease** performance.
 
 ## License
 
-Copyright (c) 2012 Gabriel Vieira
-
-MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+See LICENSE.txt
 
 ## Contributing
 
-I'm accepting contributions of all sorts. This is the first version and the code base is very small, so feel free to add a new feature, refactor a method/class/module, add more tests, etc.
+I'm accepting contributions of all sorts.
