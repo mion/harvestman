@@ -8,7 +8,7 @@ class TestHarvestman < Test::Unit::TestCase
 	def test_scraping
 		results = []
 
-		Harvestman.crawl "test/example*.html", (1..3) do
+		Harvestman.crawl "test/example*.html", (1..3), :plain do
 			r = {
 				:title => css("head title"),
 				:header => css("header div.title h1"),
@@ -24,7 +24,8 @@ class TestHarvestman < Test::Unit::TestCase
 		end
 
 		results.each_with_index do |result, i|
-			assert_equal(result[:title], "ex#{i+1}")			
+			assert_equal(result[:title], "ex#{i+1}")
+			assert_equal(result[:header], "#{result[:title]}_header_h1")
 		end
 	end
 end
