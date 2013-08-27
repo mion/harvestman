@@ -1,6 +1,6 @@
 # Harvestman
 
-Harvestman is a very simple, lightweight web crawler.<br>
+Harvestman is a very simple, lightweight web crawler for Quick'n'Dirty™ web scraping.<br>
 It's quite useful for scraping search result pages:
 
 ```ruby
@@ -12,27 +12,19 @@ Harvestman.crawl 'http://www.foo.com/bars?page=*', (1..5) do
 end
 ```
 
-Or for Quick'n'Dirty™ web scraping in general.
+**[!] Warning**: this gem is in alpha stage (no tests), don't use it for anything serious.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'harvestman'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Via command line:
 
     $ gem install harvestman
 
 ## Basic usage
 
 Harvestman is fairly simple to use: you specify the URL to crawl and pass in a block.
-Inside the block you can call the ``css`` (or ``xpath``) method to search the HTML document (Harvestman is built on top of [Nokogiri](http://nokogiri.org/tutorials/searching_a_xml_html_document.html)).
-By default, these methods will return the inner text inside the node.
+Inside the block you can call the ``css`` (or ``xpath``) method to search the HTML document and get the inner text inside each node.
+See [Nokogiri](http://nokogiri.org/tutorials/searching_a_xml_html_document.html) for more information.
 
 ###### Perhaps this is best understood with an example:
 
@@ -48,8 +40,8 @@ end
 
 ## One node to rule them all
 
-Harvestman assumes there's only one node at the path you passed to the ``css`` (or ``xpath``) method (it's like calling Nokogiri's ``at_css`` method).
-If there is more than one node at that path, you should pass in an additional block.
+Harvestman assumes there's only one node at the path you passed to the ``css``.
+If there is **more than one node** at that path, you can pass in an additional block.
 
 ###### Another example:
 
@@ -108,12 +100,8 @@ Harvestman.crawl 'http://www.store.com/products?page=*', (1..99), :plain do
 end
 ```
 
-Needless to say, this will **greatly decrease** performance.
+Needless to say, this will greatly decrease performance.
 
 ## License
 
 See LICENSE.txt
-
-## Contributing
-
-I'm accepting contributions of all sorts.
