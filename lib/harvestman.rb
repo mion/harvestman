@@ -11,7 +11,7 @@ module Harvestman
   # url   - A String containing the url to be crawled.
   # pages - Zero or more Strings that will replace a * in the
   #         base url. Note: this does not need to be an Array.
-  # type  - Optional. You can use a "plain" (default) or "fast" crawler.
+  # type  - Optional. You can use a "plain" or "fast" (default) crawler.
   #         Fast mode uses threads for performance.
   #
   # Example: Crawl Etsy.com, printing the title and price of each item in
