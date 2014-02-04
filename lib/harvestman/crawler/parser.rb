@@ -2,7 +2,8 @@ module Harvestman
   module Crawler
     class Parser
       def initialize(url)
-        @document = Nokogiri::HTML(open(url))
+        @uri = URI.parse(url)
+        @document = Nokogiri::HTML(open(@uri))
       end
 
       def css(path, &block)
