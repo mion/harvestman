@@ -29,7 +29,7 @@ module Harvestman
             @document = doc
           end
         else
-          @document.send("at_#{path_type}", path).inner_text
+          @document.send("at_#{path_type}", path)
         end
       end
     end
