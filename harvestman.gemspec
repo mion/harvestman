@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Gabriel Vieira"]
   gem.email         = ["gluisvieira@gmail.com"]
   gem.summary       = %q{Lightweight web crawler}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/mion/harvestman"
 
   # Runtime dependencies
   gem.add_dependency "nokogiri", "~> 1.5"
