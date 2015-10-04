@@ -2,6 +2,7 @@ module Harvestman
   module Crawler
     class Parser
       def initialize(url)
+        @url = url
         @document = Nokogiri::HTML(open(url))
       end
 
@@ -11,6 +12,10 @@ module Harvestman
 
       def xpath(path, &block)
         parse(:xpath, path, &block)
+      end
+
+      def current_uri
+        URI.parse(@url)
       end
 
       private
