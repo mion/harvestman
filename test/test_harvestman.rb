@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class TestHarvestman < MiniTest::Unit::TestCase
+class TestHarvestman < MiniTest::Test
 	def test_namespace
 		assert Harvestman.is_a?(Module)
 	end
