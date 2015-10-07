@@ -1,6 +1,6 @@
-require 'helper'
+require 'minitest/autorun'
 
-class TestHarvestman < Test::Unit::TestCase
+class TestHarvestman < MiniTest::Unit::TestCase
 	def test_namespace
 		assert Harvestman.is_a?(Module)
 	end
@@ -25,7 +25,7 @@ class TestHarvestman < Test::Unit::TestCase
 
 		results.each_with_index do |r, i|
 			assert_equal(r[:title], "ex#{i+1}")
-			assert_equal(r[:header], "#{r[:title]}_header_h1")			
+			assert_equal(r[:header], "#{r[:title]}_header_h1")
 			assert_equal(r[:footer], "#{r[:title]}_footer_span_a")
 			assert_equal(r[:list].count, 3)
 		end
