@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'harvestman'
 
 class TestHarvestman < MiniTest::Test
 	def test_namespace
