@@ -3,7 +3,7 @@ module Harvestman
     class Parser
       def initialize(url)
         @url = url
-        @document = Nokogiri::HTML(open(url))
+        @doc = Nokogiri::HTML(open(url))
       end
 
       def css(path, &block)
@@ -22,14 +22,14 @@ module Harvestman
 
       def parse(path_type, path, &block)
         if block_given?
-          @document.send(path_type, path).each do |node|
-            doc = @document
-            @document = node
+          @doc.send(path_type, path).each do |node|
+            doc = @doc
+            @doc = node
             instance_eval(&block)
-            @document = doc
+            @doc = doc
           end
         else
-          @document.send(path_type, path)
+          @doc.send(path_type, path)
         end
       end
     end
