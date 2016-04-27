@@ -6,6 +6,7 @@ require 'harvestman/version'
 Gem::Specification.new do |gem|
   gem.name          = "harvestman"
   gem.version       = Harvestman::VERSION
+  gem.description   = "Crawl the web, elegantly."
   gem.authors       = ["Gabriel Vieira"]
   gem.email         = ["gluisvieira@gmail.com"]
   gem.summary       = %q{Lightweight web crawler}
@@ -15,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "nokogiri", "~> 1.5"
 
   # Development dependencies
-  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rake", "~> 0"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
