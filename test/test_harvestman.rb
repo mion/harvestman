@@ -6,6 +6,12 @@ class TestHarvestman < MiniTest::Test
 		assert Harvestman.is_a?(Module)
 	end
 
+	def test_single_page
+		Harvestman.crawl "test/example1.html" do
+			assert_equal "Foobar", css("title").inner_text
+		end
+	end
+
 	def test_scraping
 		results = []
 
