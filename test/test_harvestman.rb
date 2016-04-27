@@ -12,7 +12,7 @@ class TestHarvestman < MiniTest::Test
 		end
 	end
 
-	def test_scraping
+	def test_multiple_pages
 		results = []
 
 		Harvestman.crawl "test/example*.html", (1..3), :plain do
