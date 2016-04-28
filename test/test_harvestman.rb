@@ -7,15 +7,17 @@ class TestHarvestman < MiniTest::Test
 	end
 
 	def test_single_page
-		Harvestman.crawl "test/example1.html" do
-			assert_equal "Foobar", css("title").inner_text
+		result = {}
+		Harvestman.crawl "test/fixtures/index.html" do
+			result[:title] = css("title").inner_text
 		end
+		assert_equal result[:title], "Home Page"
 	end
 
 	def test_multiple_pages
 		results = []
 
-		Harvestman.crawl "test/example*.html", (1..3), :plain do
+		Harvestman.crawl "test/fixtures/page*.html", (1..3), :plain do
 			r = {
 				:title => css("head title").inner_text,
 				:header => css("header div.title h1").inner_text,
