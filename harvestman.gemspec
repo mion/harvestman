@@ -6,7 +6,7 @@ require 'harvestman/version'
 Gem::Specification.new do |gem|
   gem.name          = "harvestman"
   gem.version       = Harvestman::VERSION
-  gem.description   = "Crawl the web, elegantly."
+  gem.description   = "Quick and dirty web crawling."
   gem.authors       = ["Gabriel Vieira"]
   gem.email         = ["gluisvieira@gmail.com"]
   gem.summary       = %q{Lightweight web crawler}
