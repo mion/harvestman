@@ -1,7 +1,12 @@
+# Stanford Encyclopedia of Philosophy API
+# See: http://plato.stanford.edu/
 #
 # You need these two gems to run this example:
-#   gem install sinatra
-#   gem install sinatra-contrib
+#   $ gem install sinatra
+#   $ gem install sinatra-contrib
+#
+# Then switch to your browser and load:
+#   http://localhost:4567/search?query=capitalism
 #
 require 'sinatra'
 require 'sinatra/json'
