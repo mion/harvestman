@@ -1,8 +1,12 @@
+#
+# You need these two gems to run this example:
+#   gem install sinatra
+#   gem install sinatra-contrib
+#
 require 'sinatra'
 require 'sinatra/json'
 require 'harvestman'
 
-# def search(query, page)
 get '/search' do
   query = params['query'] || ""
   page = params['page'] || "1"
