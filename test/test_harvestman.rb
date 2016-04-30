@@ -9,15 +9,33 @@ class TestHarvestman < MiniTest::Test
 	def test_single_page
 		result = {}
 		Harvestman.crawl "test/fixtures/index.html" do
-			# grab the title
+			# Grab the title
 			result[:title] = css("title").inner_text
 
-			# grab the text inside the <a> element that points to the second page
+			# Grab the text inside the <a> element that points to the second page
 			el = css("a[href*=page2]").first
 			result[:second_page_text] = el.inner_text
+
+			# Build an array of hashes with the stuff inside the <li>'s,
+			# like this:
+			#   [0] => {title: "How about one?", link_text: "First page", link_url: "page1.html"}
+			#   [1] => {title: "How about two?", link_text: "Second page", link_url: "page2.html"}
+			#   [2] => {title: "How about three?", link_text: "Third page", link_url: "page3.html"}
+			articles = []
+			css("ul.articles > li") do
+				articles << {
+					title: css(".title").first.inner_text,
+					link_text: css("a").first.inner_text,
+					link_url: css("a").first.attributes["href"].value
+				}
+			end
+			result[:articles] = articles
 		end
 		assert_equal result[:title], "Home Page"
 		assert_equal result[:second_page_text], "Second page"
+		assert_equal result[:articles][0][:link_url], "page1.html"
+		assert_equal result[:articles][1][:link_text], "Second page"
+		assert_equal result[:articles][2][:title], "Article three"
 	end
 
 	def test_multiple_pages
