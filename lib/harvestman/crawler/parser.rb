@@ -32,6 +32,13 @@ module Harvestman
           @doc.send(path_type, path)
         end
       end
+
+      # WIP
+      # def method_missing(sym, *args, &block)
+      #   if @doc.respond_to?(sym)
+      #     @doc.send(sym, *args)
+      #   end
+      # end
     end
   end
 end
