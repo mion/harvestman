@@ -9,9 +9,15 @@ class TestHarvestman < MiniTest::Test
 	def test_single_page
 		result = {}
 		Harvestman.crawl "test/fixtures/index.html" do
+			# grab the title
 			result[:title] = css("title").inner_text
+
+			# grab the text inside the a element that points to the second page
+			el = css("a[href*=page2]").first
+			result[:second_page_text] = el.inner_text
 		end
 		assert_equal result[:title], "Home Page"
+		assert_equal result[:second_page_text], "Second page"
 	end
 
 	def test_multiple_pages
