@@ -12,7 +12,7 @@ class TestHarvestman < MiniTest::Test
 			# grab the title
 			result[:title] = css("title").inner_text
 
-			# grab the text inside the a element that points to the second page
+			# grab the text inside the <a> element that points to the second page
 			el = css("a[href*=page2]").first
 			result[:second_page_text] = el.inner_text
 		end
